@@ -3,6 +3,9 @@ import Blog from "../models/blogsModel.js";
 import { blogValidationSchema } from "../validations/blogsValidation.js";
 
 const uploadBlog = async (req, res) => {
+  console.log('Request Body:', req.body); // Check if all fields are received
+  console.log('Uploaded File:', req.file); // Check if the file is received
+  
   // Validate the request data using Joi
   const { error, value } = blogValidationSchema.validate(req.body);
   if (error) {
@@ -13,15 +16,15 @@ const uploadBlog = async (req, res) => {
   }
  
   // Check if the file was uploaded  
-  // if (!req.file) {
-  //   return res.status(httpStatus.BAD_REQUEST).json({
-  //     status: "error",
-  //     message: "Blog cover image is required",
-  //   });
-  // }
+  if (!req.file) {
+    return res.status(httpStatus.BAD_REQUEST).json({
+      status: "error",
+      message: "Blog cover image is required",
+    });
+  }
 
   const { title, summary, author, contents, date } = value;
-  // const image = req.file.filename;
+  const image = req.file.filename;
 
   try {
     // Check if the blog already exists
@@ -37,10 +40,10 @@ const uploadBlog = async (req, res) => {
     blog = new Blog({
       title,
       summary,
-      // image,
+      image,
       author,
       contents,
-      date,
+      date: date || new Date() // Default to current date if not provided
     });
 
     // Save the blog to the database
@@ -58,6 +61,8 @@ const uploadBlog = async (req, res) => {
       message: "An error occurred while uploading the blog",
     });
   }
+
+  
 };
 
 const getBlogs = async (req, res) => {
