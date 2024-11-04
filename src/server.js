@@ -36,10 +36,10 @@ app.use(cors());
 //   credentials: true
 // }));
 
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 app.use(helmet());
- 
+
 // give condition to use morgan
 if (NODE_ENV !== "production") {
   app.use(morgan("dev"));
@@ -56,20 +56,20 @@ app.get("/", (req, res) => {
 // admin base routes
 app.use("/admins", Adminrouter);
 
-// users base routes 
+// users base routes
 app.use("/users", Usersrouter);
 
 //books base routes
-app.use('/api/blogs', Blogsrouter);
+app.use("/api/blogs", Blogsrouter);
 
 //events base routes
-app.use('/api/events', Eventsrouter);
+app.use("/api/events", Eventsrouter);
 
 //resources base routes
-app.use('/api/resources', Resourcesrouter);
+app.use("/api/resources", Resourcesrouter);
 
 //comments base routes
-app.use('/api/comments', Commentsrouter);
+app.use("/api/comments", Commentsrouter);
 
 //connecting to the database
 dbConnection()
