@@ -3,9 +3,7 @@ import Blog from "../models/blogsModel.js";
 import { blogValidationSchema } from "../validations/blogsValidation.js";
 
 const uploadBlog = async (req, res) => {
-  console.log('Request Body:', req.body); // Check if all fields are received
-  console.log('Uploaded File:', req.file); // Check if the file is received
-  
+ 
   // Validate the request data using Joi
   const { error, value } = blogValidationSchema.validate(req.body);
   if (error) {
@@ -28,6 +26,9 @@ const uploadBlog = async (req, res) => {
 
   try {
     // Check if the blog already exists
+    console.log('Request Body:', req.body); // Check if all fields are received
+    console.log('Uploaded File:', req.file); // Check if the file is received
+    
     let blog = await Blog.findOne({ title });
     if (blog) {
       return res.status(httpStatus.CONFLICT).json({

@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-//Route to handle blog upload
+//Route to handle blog upload 
 router.post("/blog-upload", upload.single("image"), uploadBlog);
 // router.post("/blog-upload", uploadBlog);
 

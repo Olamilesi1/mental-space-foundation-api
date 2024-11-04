@@ -30,9 +30,16 @@ const { PORT, NODE_ENV } = process.env;
 
 // declare our servers's or express app general use
 app.use(bodyParser.json());
-app.use(cors());
-app.use(helmet());
+// app.use(cors());
+app.use(cors({
+  origin: 'https://mental-space-foundation.vercel.app/', // Change to your frontend URL
+  credentials: true
+}));
 
+app.use('/uploads', express.static('uploads'));
+
+app.use(helmet());
+ 
 // give condition to use morgan
 if (NODE_ENV !== "production") {
   app.use(morgan("dev"));
