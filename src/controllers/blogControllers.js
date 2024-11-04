@@ -13,15 +13,15 @@ const uploadBlog = async (req, res) => {
   }
  
   // Check if the file was uploaded  
-  if (!req.file) {
-    return res.status(httpStatus.BAD_REQUEST).json({
-      status: "error",
-      message: "Blog cover image is required",
-    });
-  }
+  // if (!req.file) {
+  //   return res.status(httpStatus.BAD_REQUEST).json({
+  //     status: "error",
+  //     message: "Blog cover image is required",
+  //   });
+  // }
 
   const { title, summary, author, contents, date } = value;
-  const image = req.file.filename;
+  // const image = req.file.filename;
 
   try {
     // Check if the blog already exists
@@ -37,7 +37,7 @@ const uploadBlog = async (req, res) => {
     blog = new Blog({
       title,
       summary,
-      image,
+      // image,
       author,
       contents,
       date,
